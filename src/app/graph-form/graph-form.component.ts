@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { RequestService } from "../services/request.service";
 import { Graph } from "../models/graph";
 
 @Component({
@@ -12,11 +12,12 @@ export class GraphFormComponent {
   public source: string;
   public target: string;
 
-  submitted = false;
+  constructor(private requestService: RequestService) {}
 
-  onSubmit() { 
+  async onSubmit() { 
     let graph = new Graph(this.id, this.source.toUpperCase(), this.target.toUpperCase());
-    console.log(graph);
+    let res = await this.requestService.distanceRequest(graph);
+    console.log(res);
   }
 
 }
