@@ -29,10 +29,12 @@ export class GraphFormComponent {
       res = await this.requestService.distanceRequest(graph);
       this.distance = res.distance;
       this.paths = res.path;
+      this.showRouteResponse =  false;
       this.showDistanceResponse = true;
     } else if (this.choice == 'route') {
       res = await this.requestService.routeRequest(graph);
       this.routes = res.routes;
+      this.showDistanceResponse = false;
       this.showRouteResponse =  true;
     }
     
