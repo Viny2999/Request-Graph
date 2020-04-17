@@ -1,9 +1,18 @@
 <div class="container">
-    <h1>Graph Tracker</h1>
+		<h1>Graph Tracker</h1>
+		
     <form>
 			<div class="form-group">
+				<label>Function</label>
+				<select class="form-control" [(ngModel)]="choice" name="choice" required>
+					<option value="distance">Distance</option>
+					<option value="route">Route</option>
+				</select>
+			</div>
+
+			<div class="form-group">
 				<label>ID</label>
-				<input type="text" class="form-control" [(ngModel)]="id" name="id" required>
+				<input type="number" class="form-control" [(ngModel)]="id" name="id" required>
 			</div>
 
       <div class="form-group">
@@ -14,8 +23,36 @@
       <div class="form-group">
         <label>Target</label>
         <input type="text" class="form-control" [(ngModel)]="target" name="target" required>
+			</div>
+			
+			<div class="form-group" *ngIf="this.choice === 'route'">
+        <label>Max Stops</label>
+        <input type="number" class="form-control" [(ngModel)]="maxStops" name="maxStops" required>
       </div>
 
       <button type="submit" class="btn btn-success" (click)="onSubmit()">Submit</button>
-    </form>
+		</form>
+		
+
+		<div *ngIf="showDistanceResponse" style="margin-top: 5%;">
+			<h3>Result</h3>
+			<p>
+				Distance: {{distance}}
+			</p> 
+			<p *ngFor="let path of paths">
+				Path: {{path}}
+			</p>
+		</div>
+
+		<div *ngIf="showRouteResponse" style="margin-top: 5%;">
+			<h3>Result</h3>
+			<div *ngFor="let route of routes">
+				<p>
+					Route: {{route.route}}
+				</p>
+				<p>
+					Stops: {{route.stops}}
+				</p>
+			</div>
+		</div>
 </div>
